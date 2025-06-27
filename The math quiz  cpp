@@ -45,9 +45,9 @@ string printpassorfail(enpass pass)
     switch (pass)
     {
      case enpass::pass:
-     return "you pass the exam ";
+     return "you pass the exam :-) ";
      case enpass::fail:
-    return "you fail in the exam "; 
+    return "you fail in the exam :-("; 
         
         
     }
@@ -178,10 +178,10 @@ string  newline(int x )
     return word ;
 } 
 char changeoperation (enoperation operationn)
-{
-    char x[4]={'+','-','*','/'};
-    return x[(int)operationn -1]; 
-}
+    {
+        char x[4]={'+','-','*','/'};
+        return x[(int)operationn -1]; 
+    }
 enanswer checktheanswer(int useranswer , int rightanswer)
 {
     if (useranswer==rightanswer)
@@ -243,11 +243,59 @@ roundinfo.level =checkthelevel ();
  return fillgameinfo(roundd,rightanswers,wronganswers,roundinfo.operation,roundinfo.level);
     
 }
+string changeleveltostring(enlevel level )
+{
+    string x[4]={"Easy","medium ", "Hard","mix"};
+return x[(int )level -1 ];    
+}
+string changeoperationtostring(enoperation operation )
+{
+    string x[5]={"add","subtract","multiply","divition","mix"};
+    return x[(int )operation-1];
+
+}
+
+void printgameinfo(stgameinfo gameinfo )
+{
+ cout <<"number of quesions    :"<<gameinfo.numberofquesions<<newline(1);
+ cout <<"Quesion level         :"<<changeleveltostring(gameinfo.level)<<endl ;
+ cout <<"optype                :"<<changeoperationtostring(gameinfo.operation)<<endl;
+ cout <<"number of RightAnswers :"<<gameinfo.writeanswers<<endl; 
+ cout <<"number of Wronganswers :"<<gameinfo.wronganswers<<endl ;
+    
+}
+void gameoverscreen (enpass pass)
+{cout <<"\n______________________________"<<newline(2);
+cout <<"\n     "<<printpassorfail(pass);
+cout <<newline(2)<<"______________________________"<<newline(2);
+    
+}
+void startgame()
+{
+   char answer = 'y'; 
+do 
+{
+stgameinfo gameinfo= startround(howmanyrounds());
+gameoverscreen(gameinfo.pass);
+printgameinfo(gameinfo);
+cout <<newline(2)<<"______________________________\n\n";
+cout <<"do you want to play again yes [y] no[n] ";
+cin >>answer;
+
+    
+}while (answer=='Y'||answer=='y');
+    
+    
+}
+
 
 
 int main()
 {srand((unsigned)time(NULL));
-startround(howmanyrounds());
+
+
+
+startgame();
 
     return 0;
 } 
